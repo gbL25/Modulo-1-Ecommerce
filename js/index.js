@@ -31,7 +31,7 @@ function criarCards() {
 
         let p3 = document.createElement('p')
         p3.className = 'preco'
-        p3.innerText = `R$ ${data[i].value}`
+        p3.innerText = `R$ ${data[i].value.toFixed(2)}`
 
         li.appendChild(p3)
 
@@ -60,7 +60,7 @@ for (let i = 0; i < botoes.length; i++) {
 
     botao.addEventListener('click', function (e) {
         let idElemento = e.target.dataset.id;
-
+        
         for (let i = 0; i < data.length; i++) {
             if(idElemento == data[i].id){
                 carrinhoVazio1.push(data[i]);
@@ -69,9 +69,12 @@ for (let i = 0; i < botoes.length; i++) {
         
                 let ul = document.querySelector('.espaco_carrinho')
                 ul.appendChild(card) 
-                
-            }
+                soma += data[i].value
             
+                document.querySelector('.total_preco').innerText = `R$${soma.toFixed(2)}`
+
+            }
+        
         }
         let h2 = document.querySelector('.carrinho_h2')
 
@@ -116,7 +119,7 @@ function adicionarCarrinho(elemento) {
 
     let p = document.createElement('p')
     p.className = 'preco1'
-    p.innerText = `R$ ${elemento.value}`
+    p.innerText = `R$ ${elemento.value.toFixed(2)}`
 
     let button = document.createElement('button')
     button.dataset.id = elemento.id
@@ -125,6 +128,7 @@ function adicionarCarrinho(elemento) {
 
     button.addEventListener('click', function (e) {
         let idElemento = e.target.dataset.id;
+
 
     for (let i = 0; i < carrinhoVazio1.length; i++) {
         let carrinho = carrinhoVazio1.findIndex((elemento)=>{
@@ -144,6 +148,11 @@ function adicionarCarrinho(elemento) {
 
         count--;
         document.querySelector('.total_quantidade').innerHTML = `${count}`
+
+
+        soma = soma - elemento.value
+           
+        document.querySelector('.total_preco').innerText = `R$${soma.toFixed(2)}`
 
         carrinhoVazio()
 
@@ -173,5 +182,21 @@ function carrinhoVazio() {
 
 }
 
+let camisetas = [];
+let acessorios = [];
+let calcados = [];
 
+function separateItens() {
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].tag == 'Camisetas'.toLowerCase()) {
+            camisetas.push(data[i])
+        } else if(data[i].tag == 'Acessórios'.toLowerCase()){
+            acessorios.push(data[i])
+        } else{
+            calcados.push(data[i])
+        }
+    }
+}
+separateItens()
 
+    

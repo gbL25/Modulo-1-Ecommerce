@@ -3,6 +3,10 @@
 
 body {
     font-family: 'Inter', sans-serif;
+    background-image: url('../img/wallpaperbetter.com_1920x1080.jpg');
+    cursor: url('../img/pag.png'), auto;
+    
+
 }
 
 header {
@@ -21,6 +25,13 @@ h1 {
     font-weight: bold;
     color: #333333;
     margin-left: 214px;
+    
+}
+
+.logo{
+    width: 220px;
+    margin-left: 214px;
+    background-color: transparent;
 }
 
 nav {
@@ -31,21 +42,19 @@ nav {
 .menu {
     text-decoration: none;
     padding: 10px;
-    color: #333333;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 18px;
+    color: #F2E635;
+   
 }
 
 .menu:hover {
-    text-decoration: underline;
     font-weight: bold;
+    cursor: url('../img/pag.png'), auto;
 }
 
 main {
     margin: 0 auto;
     max-width: 100%;
-
-
 }
 
 .parte_cima {
@@ -57,20 +66,20 @@ main {
     margin: 40px 0 0 -30px;
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 15px 30px;
     flex-wrap: wrap;
     width: 60%;
 }
 
 .card1 {
     width: 300px;
-    height: 435px;
-    border: 2px solid #F5F5F5;
+    height: 495px;
 }
 
 .card1:hover {
     cursor: pointer;
-    border: 3px solid #2E245E;
+    border: 2px solid #069805;
+    cursor: url('../img/card.png'), auto;
 }
 
 .img_cards {
@@ -79,17 +88,19 @@ main {
 }
 
 .tipo {
-    color: #F5F5F5;
-    background-color: #2E245E;
+    color: #02B5D4;
+    background-color: #ECF230;
     width: 30%;
     text-align: center;
     font: 10px;
     padding: 6px;
     margin: 10px 0 10px 25px;
+    font-weight: bold;
 
 }
 
 h4 {
+    color: white;
     font-size: 16px;
     font-weight: bold;
     padding: 10px 0px 10px 25px;
@@ -98,21 +109,21 @@ h4 {
 .descricao {
     font-size: 14px;
     padding: 10px 0px 10px 25px;
-    color: #333333;
+    color: white;
     width: 90%;
 }
 
 .preco {
-    color: #2E245E;
+    color: #F2E635;
     font-size: 14px;
     font-weight: bold;
     margin-left: 25px;
 }
 
 .adicione {
-    background-color: white;
+    background-color: transparent;
     text-decoration: none;
-    color: #333333;
+    color: #02B5D4;
     font-weight: bold;
     padding: 10px 0px 10px 25px;
     margin-bottom: 10px;
@@ -122,7 +133,8 @@ h4 {
 .adicione:hover {
     cursor: pointer;
     text-decoration: underline;
-    color: #37268C;
+    color: #026873;
+    cursor: url('../img/adicionar.png'), auto;
 }
 
 .div_carrinho {
@@ -139,9 +151,9 @@ h4 {
 }
 
 .btn_pesquisar {
-    background-color: #37268C;
+    background-color: #02B5D4;
     border-style: none;
-    color: #F5F5F5;
+    color: #ECF230;
     height: 35px;
     width: 113px;
 
@@ -150,12 +162,13 @@ h4 {
 .btn_pesquisar:hover {
     cursor: pointer;
     text-decoration: underline;
+    cursor: url('../img/pesquisa.png'), auto;
 }
 
 .carrinho {
     margin-top: 20px;
-    color: #F5F5F5;
-    background-color: #37268C;
+    color: #ECF230;
+    background-color: #02B5D4;
     text-align: center;
     font-weight: 400;
     padding-top: 15px;
@@ -255,6 +268,7 @@ h5 {
 
 .button2:hover {
     text-decoration: underline;
+    cursor: url('../img/remover.png'), auto;
 }
 
 .total {
