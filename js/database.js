@@ -43,7 +43,7 @@ const data = [
   },
   {
     id: 5,
-    img: "../img/moletom.jpg",
+    img: "../img/Moletom.jpg",
     nameItem: "Blusa Moletom Canguru Rick And Morty em Algodão",
     description:
       "Nossas peças são confecções próprias, usamos tecido composto por 78% algodão e 22% poliéster. O algodão traz a sensação de maciez, conforto e aquecimento. ",
