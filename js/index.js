@@ -1,5 +1,9 @@
-function criarCards() {
-    for (let i = 0; i < data.length; i++) {
+let carrinhoVazio1 = [];
+let count = 0;
+let soma = 0;
+
+function criarCards(array) {
+    for (let i = 0; i < array.length; i++) {
         let ulList = document.querySelector('ul')
 
         let li = document.createElement('li')
@@ -7,38 +11,62 @@ function criarCards() {
 
         let img = document.createElement('img')
         img.className = 'img_cards'
-        img.src = data[i].img
-        img.alt = data[i].nameItem
+        img.src = array[i].img
+        img.alt = array[i].nameItem
 
         li.appendChild(img)
 
         let p1 = document.createElement('p')
         p1.className = 'tipo'
-        p1.innerText = data[i].tag
+        p1.innerText = array[i].tag
 
         li.appendChild(p1)
 
         let h4 = document.createElement('h4')
-        h4.innerText = data[i].nameItem
+        h4.innerText = array[i].nameItem
 
         li.appendChild(h4)
 
         let p2 = document.createElement('p')
         p2.className = 'descricao'
-        p2.innerText = data[i].description
+        p2.innerText = array[i].description
 
         li.appendChild(p2)
 
         let p3 = document.createElement('p')
         p3.className = 'preco'
-        p3.innerText = `R$ ${data[i].value.toFixed(2)}`
+        p3.innerText = `R$ ${array[i].value.toFixed(2)}`
 
         li.appendChild(p3)
 
         let button = document.createElement('button')
-        button.dataset.id = data[i].id
+        button.dataset.id = array[i].id
         button.className = 'adicione'
         button.innerText = 'Adicionar ao carrinho'
+
+        button.addEventListener('click', function () {
+
+            carrinhoVazio1.push(array[i]);
+
+            let card = adicionarCarrinho(array[i]);
+
+            let ul = document.querySelector('.espaco_carrinho')
+            ul.appendChild(card)
+            soma += array[i].value
+
+            document.querySelector('.total_preco').innerText = `R$${soma.toFixed(2)}`
+
+            let h2 = document.querySelector('.carrinho_h2')
+
+            let p = document.querySelector('.carrinho_p')
+
+            h2.style.display = 'none'
+            p.style.display = 'none'
+
+            count++;
+            document.querySelector('.total_quantidade').innerHTML = `${count}`
+
+        })
 
         li.appendChild(button)
 
@@ -47,48 +75,7 @@ function criarCards() {
     }
 
 }
-criarCards()
-
-let botoes = document.querySelectorAll('.adicione')
-let count = 0;
-let soma = 0;
-let carrinhoVazio1 = [];
-
-
-for (let i = 0; i < botoes.length; i++) {
-    let botao = botoes[i];
-
-    botao.addEventListener('click', function (e) {
-        let idElemento = e.target.dataset.id;
-        
-        for (let i = 0; i < data.length; i++) {
-            if(idElemento == data[i].id){
-                carrinhoVazio1.push(data[i]);
-
-                let card = adicionarCarrinho(data[i]);
-        
-                let ul = document.querySelector('.espaco_carrinho')
-                ul.appendChild(card) 
-                soma += data[i].value
-            
-                document.querySelector('.total_preco').innerText = `R$${soma.toFixed(2)}`
-
-            }
-        
-        }
-        let h2 = document.querySelector('.carrinho_h2')
-
-        let p = document.querySelector('.carrinho_p')
-
-        h2.style.display = 'none'
-        p.style.display = 'none'
-
-        count++;
-        document.querySelector('.total_quantidade').innerHTML = `${count}`
-        
-    })
-    
-}
+criarCards(data)
 
 function procuraId(id) {
     for (let i = 0; i < data.length; i++) {
@@ -130,14 +117,14 @@ function adicionarCarrinho(elemento) {
         let idElemento = e.target.dataset.id;
 
 
-    for (let i = 0; i < carrinhoVazio1.length; i++) {
-        let carrinho = carrinhoVazio1.findIndex((elemento)=>{
-            
-            return elemento.id == idElemento
-        })
-        carrinhoVazio1.splice(carrinho, 1)
-        break
-    }
+        for (let i = 0; i < carrinhoVazio1.length; i++) {
+            let carrinho = carrinhoVazio1.findIndex((elemento) => {
+
+                return elemento.id == idElemento
+            })
+            carrinhoVazio1.splice(carrinho, 1)
+            break
+        }
 
 
         //e.path[2].remove();
@@ -151,7 +138,10 @@ function adicionarCarrinho(elemento) {
 
 
         soma = soma - elemento.value
-           
+        if (soma < 0) {
+            soma = 0
+        }
+
         document.querySelector('.total_preco').innerText = `R$${soma.toFixed(2)}`
 
         carrinhoVazio()
@@ -168,9 +158,9 @@ function adicionarCarrinho(elemento) {
 }
 
 function carrinhoVazio() {
-    
+
     if (carrinhoVazio1.length == 0) {
-        
+
         let h2 = document.querySelector('.carrinho_h2')
 
         let p = document.querySelector('.carrinho_p')
@@ -186,17 +176,77 @@ let camisetas = [];
 let acessorios = [];
 let calcados = [];
 
-function separateItens() {
+function separarItens() {
+
     for (let i = 0; i < data.length; i++) {
-        if (data[i].tag == 'Camisetas'.toLowerCase()) {
+        if (data[i].tag[0] == 'Camisetas') {
             camisetas.push(data[i])
-        } else if(data[i].tag == 'Acessórios'.toLowerCase()){
+        } else if (data[i].tag[0] == 'Acessórios') {
             acessorios.push(data[i])
-        } else{
+        } else {
             calcados.push(data[i])
         }
     }
-}
-separateItens()
 
-    
+}
+separarItens()
+
+function categorias() {
+    let camisetasid = document.querySelector('#camisetas');
+    camisetasid.addEventListener('click', function () {
+        let ul = document.querySelector('.container_1');
+        ul.innerHTML = '';
+        criarCards(camisetas)
+    });
+    let calcadosid = document.querySelector('#calcados');
+    calcadosid.addEventListener('click', function () {
+        let ul = document.querySelector('.container_1');
+        ul.innerHTML = '';
+        criarCards(calcados)
+    });
+    let acessoriosid = document.querySelector('#acessorios');
+    acessoriosid.addEventListener('click', function () {
+        let ul = document.querySelector('.container_1');
+        ul.innerHTML = '';
+        criarCards(acessorios)
+    });
+    let todosid = document.querySelector('#todos');
+    todosid.addEventListener('click', function () {
+        let ul = document.querySelector('.container_1');
+        ul.innerHTML = '';
+        criarCards(data)
+    });
+}
+categorias()
+
+function pesquisar() {
+    let botao = document.querySelector('.btn_pesquisar')
+    botao.addEventListener('click', function () {
+        let ul = document.querySelector('.container_1');
+        ul.innerHTML = '';
+        let texto = document.querySelector('.pesquisa')
+        let textoValue = texto.value;
+        let vazio = data.filter((element) => {
+            return element.tag[0].toLowerCase().includes(textoValue.toLowerCase())
+        })
+        for (let i = 0; i < data.length; i++) {
+            let element = data[i];
+            // console.log(element)
+            // console.log(element.tag)
+            // console.log(element.nameItem)
+                vazio.push(element.tag)
+                criarCards(vazio)
+        }
+    })
+}
+pesquisar()
+
+function home() {
+    let home = document.querySelector('#home')
+    home.addEventListener('click', function () {
+        let ul = document.querySelector('.container_1');
+        ul.innerHTML = '';
+        criarCards(data)
+    })
+}
+home()
